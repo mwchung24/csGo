@@ -11,6 +11,8 @@ class App extends Component {
 
     this.items_popular = this.items_popular.bind(this);
     this.items = this.items.bind(this);
+    this.header = this.header.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
 
@@ -23,7 +25,7 @@ class App extends Component {
     let items = require('./items.json');
     console.log(items.items);
     this.setState({
-      "items" : items.items
+      "items" : items.items.slice(0,10)
     });
 
     // console.log(this.state);
@@ -60,20 +62,34 @@ class App extends Component {
     let items = this.state.items;
     let listed = items.map((item) => {
       return (
-        <li>
-          {item.market_hash_name}
-          <img src={item.icon_url}>
-          </img>
+        <li className="item" onClick={this.handleClick(item)}>
+          <img className='skin-picture' src={item.icon_url}></img>
+          <div className = "skinName">
+            {item.market_hash_name}
+          </div>
         </li>
       );
     });
     return listed;
   }
 
+  header() {
+    return (
+      <div className = "header">
+        CSGO Skins
+      </div>
+    );
+  }
+
+  handleClick(item) {
+    console.log(item);
+  }
+
   render() {
     return (
       <section>
-        <ul>
+        {this.header()}
+        <ul className="skins">
           {this.items()}
         </ul>
       </section>
