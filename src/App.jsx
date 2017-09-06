@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Modal from './modal.jsx';
 
 class App extends Component {
 
@@ -62,7 +63,7 @@ class App extends Component {
     let items = this.state.items;
     let listed = items.map((item) => {
       return (
-        <li className="item" onClick={this.handleClick(item)}>
+        <li className="item" onClick={() => this.handleClick(item)}>
           <img className='skin-picture' src={item.icon_url}></img>
           <div className = "skinName">
             {item.market_hash_name}
@@ -83,6 +84,9 @@ class App extends Component {
 
   handleClick(item) {
     console.log(item);
+    return (
+      <Modal/>
+    );
   }
 
   render() {
