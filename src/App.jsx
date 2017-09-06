@@ -10,6 +10,8 @@ class App extends Component {
     this.state = {
       open: false,
       item: null,
+      price: null,
+      items: null,
     };
 
     this.items_popular = this.items_popular.bind(this);
@@ -18,6 +20,8 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.price = this.price.bind(this);
+    this.setPrice = this.setPrice.bind(this);
   }
 
 
@@ -28,7 +32,7 @@ class App extends Component {
     });
 
     let items = require('./items.json');
-    console.log(items.items);
+    // console.log(items.items);
     this.setState({
       "items" : items.items.slice(0,10)
     });
@@ -43,10 +47,11 @@ class App extends Component {
     //     console.log(xhr.responseText);
     //   }
     // };
-
-    // xhr.open("GET", "http://api.csgo.steamlytics.xyz/v1/items/popular?key=1c6ebe8e60761812d139c06197b0b71e", true);
-    // xhr.open("GET", "http://api.csgo.steamlytics.xyz/v1/items?key=1c6ebe8e60761812d139c06197b0b71e", true);
-    // xhr.open("GET", "http://api.csgo.steamlytics.xyz/v1/items/popular?limit=100&key=1c6ebe8e60761812d139c06197b0b71e", true);
+    // let market_hash_name = "★ Bayonet";
+    // // xhr.open("GET", "http://api.csgo.steamlytics.xyz/v1/items/popular?key=1c6ebe8e60761812d139c06197b0b71e", true);
+    // // xhr.open("GET", "http://api.csgo.steamlytics.xyz/v1/items?key=1c6ebe8e60761812d139c06197b0b71e", true);
+    // // xhr.open("GET", "http://api.csgo.steamlytics.xyz/v1/items/popular?limit=100&key=1c6ebe8e60761812d139c06197b0b71e", true);
+    // xhr.open("GET", `http://api.csgo.steamlytics.xyz/v1/prices/${market_hash_name}?key=1c6ebe8e60761812d139c06197b0b71e`, true);
     // xhr.send();
   }
 
@@ -95,9 +100,37 @@ class App extends Component {
 
   openModal(e, item) {
     e.stopPropagation();
+    // this.setState({
+    //   open: !this.state.open,
+    //   item: item
+    // });
+
+    this.price(item, this.setPrice);
+  }
+
+  price (item, callback) {
+    // debugger
+    let xhr = new XMLHttpRequest();
+    let item_price;
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log(xhr.status);
+        console.log(xhr.statusText);
+        console.log(xhr.responseText);
+        item_price = xhr.responseText;
+        callback(item, item_price);
+      }
+    };
+    let market_hash_name = item.market_hash_name;
+    xhr.open("GET", `http://api.csgo.steamlytics.xyz/v1/prices/${market_hash_name}?key=1c6ebe8e60761812d139c06197b0b71e`, true);
+    xhr.send();
+  }
+
+  setPrice(item, item_price) {
     this.setState({
       open: !this.state.open,
-      item: item
+      item: item,
+      price: item_price
     });
   }
 
@@ -119,6 +152,7 @@ class App extends Component {
           closeModal = {() => this.closeModal()}
           open = {this.state.open}
           children = {this.state.item}
+          price = {this.state.price}
         />
       </section>
     );

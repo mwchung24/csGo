@@ -6,6 +6,7 @@ class Modal extends Component {
   }
 
   render () {
+    let parsed = JSON.parse(this.props.price);
     if(this.props.open) {
       return (
         <div className="fullModal" onClick={ () => this.props.closeModal()}>
@@ -14,6 +15,18 @@ class Modal extends Component {
               {this.props.children.market_hash_name}
             </div>
             <img className='skin-picture-modal' src={this.props.children.icon_url}></img>
+            <div>
+              Average Price: ${parsed.average_price}
+            </div>
+            <div>
+              Median Price: ${parsed.median_price}
+            </div>
+            <div>
+              Highest Sold: ${parsed.highest_price}
+            </div>
+            <div>
+              Lowest Sold: ${parsed.lowest_price}
+            </div>
           </div>
         </div>
       );
