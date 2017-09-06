@@ -71,4 +71,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 0;
+  left: 0;
+  overflow: auto;
+}
+
+.modalContent {
+  margin: auto;
+  background-color: white;
+  height: 80%;
+  width: 80%;
 }
