@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Modal from './modal.jsx';
+import Load from './load.jsx';
 
 class App extends Component {
 
@@ -12,6 +13,7 @@ class App extends Component {
       item: null,
       price: null,
       items: null,
+      loading: false,
     };
 
     this.items_popular = this.items_popular.bind(this);
@@ -22,6 +24,7 @@ class App extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.price = this.price.bind(this);
     this.setPrice = this.setPrice.bind(this);
+    this.load = this.load.bind(this);
   }
 
 
@@ -124,13 +127,30 @@ class App extends Component {
     let market_hash_name = item.market_hash_name;
     xhr.open("GET", `http://api.csgo.steamlytics.xyz/v1/prices/${market_hash_name}?key=1c6ebe8e60761812d139c06197b0b71e`, true);
     xhr.send();
+    this.setState({
+      loading: true,
+    });
+
+    this.load();
+  }
+
+  load() {
+    if (this.state.loading) {
+      // debugger
+      return (
+        <div className="loading">LOADING</div>
+      );
+    } else {
+      return null;
+    }
   }
 
   setPrice(item, item_price) {
     this.setState({
       open: !this.state.open,
       item: item,
-      price: item_price
+      price: item_price,
+      loading: false,
     });
   }
 
@@ -154,7 +174,12 @@ class App extends Component {
           children = {this.state.item}
           price = {this.state.price}
         />
+
+        <Load
+          load = {this.state.loading}
+        />
       </section>
+
     );
     // <section>
     //   <ul>

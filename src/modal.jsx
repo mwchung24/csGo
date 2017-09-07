@@ -5,7 +5,7 @@ class Modal extends Component {
     super(props);
   }
 
-  render () {
+  render() {
     let parsed = JSON.parse(this.props.price);
     if(this.props.open) {
       return (

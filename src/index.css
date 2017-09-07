@@ -90,6 +90,21 @@ body {
   color: white;
 }
 
+.loading {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  background-color: rgba(0,0,0,.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  color: white;
+}
+
 .skin-picture-modal {
   height: auto;
   width: 70%;
