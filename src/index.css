@@ -77,8 +77,20 @@ body {
 }
 
 .modalContent {
-  margin: auto;
-  background-color: white;
-  height: 70%;
+  /*margin: auto;*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("./image/modalbackground.png");
+  background-size: 100%;
+  background-attachment: fixed;
+  height: 80%;
+  width: 60%;
+  color: white;
+}
+
+.skin-picture-modal {
+  height: auto;
   width: 70%;
 }
