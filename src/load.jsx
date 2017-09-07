@@ -9,8 +9,10 @@ class Load extends Component {
     if(this.props.load) {
       return (
         <div className='loading'>
-          LOADING
           <img className="loading-wheel" src={"http://orig03.deviantart.net/6e9c/f/2015/039/1/e/spinning_colorwheel_by_sykaeh-d8h4xr0.gif"}></img>
+          <div className="loading-text">
+            LOADING...
+          </div>
         </div>
       );
     } else {

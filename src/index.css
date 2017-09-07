@@ -99,10 +99,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   top: 0;
   left: 0;
   overflow: auto;
   color: white;
+}
+
+.loading-text {
+  font-size: 36px;
+  margin-top: 20px;
 }
 
 .skin-picture-modal {
