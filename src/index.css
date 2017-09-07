@@ -109,3 +109,8 @@ body {
   height: auto;
   width: 70%;
 }
+
+.loading-wheel {
+  height: 300px;
+  width: 300px;
+}
