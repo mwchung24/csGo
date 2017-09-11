@@ -40,7 +40,7 @@ class App extends Component {
     let items = require('./items.json');
     // console.log(items.items);
     this.setState({
-      "items" : items.items.slice(0,10)
+      "items" : items.items
     });
 
     // console.log(this.state);
@@ -76,11 +76,21 @@ class App extends Component {
 
   items() {
     if (this.state.search) {
-      return (
-        <div>test</div>
-      );
+      let items = this.state.items.slice(0,10);
+      // debugger
+      let listed = items.map((item) => {
+        return (
+          <li className="item" onClick={(e) => this.openModal(e, item)}>
+            <img className='skin-picture' src={item.icon_url}></img>
+            <div className = "skinName">
+              {item.market_hash_name}
+            </div>
+          </li>
+        );
+      });
+      return listed;
     } else {
-      let items = this.state.items;
+      let items = this.state.items.slice(0,10);
       let listed = items.map((item) => {
         return (
           <li className="item" onClick={(e) => this.openModal(e, item)}>
@@ -177,15 +187,6 @@ class App extends Component {
     this.setState({
       search: input
     });
-    // if (input) {
-    //   return (
-    //     <div></div>
-    //   );
-    // } else {
-    //   return (
-    //     this.items()
-    //   );
-    // }
   }
 
   render() {
