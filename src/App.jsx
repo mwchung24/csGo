@@ -75,18 +75,24 @@ class App extends Component {
   }
 
   items() {
-    let items = this.state.items;
-    let listed = items.map((item) => {
+    if (this.state.search) {
       return (
-        <li className="item" onClick={(e) => this.openModal(e, item)}>
-          <img className='skin-picture' src={item.icon_url}></img>
-          <div className = "skinName">
-            {item.market_hash_name}
-          </div>
-        </li>
+        <div>test</div>
       );
-    });
-    return listed;
+    } else {
+      let items = this.state.items;
+      let listed = items.map((item) => {
+        return (
+          <li className="item" onClick={(e) => this.openModal(e, item)}>
+            <img className='skin-picture' src={item.icon_url}></img>
+            <div className = "skinName">
+              {item.market_hash_name}
+            </div>
+          </li>
+        );
+      });
+      return listed;
+    }
   }
 
   header() {
@@ -144,7 +150,6 @@ class App extends Component {
 
   load() {
     if (this.state.loading) {
-      // debugger
       return (
         <div className="loading">LOADING</div>
       );
@@ -169,15 +174,18 @@ class App extends Component {
   }
 
   search(input) {
-    if (input) {
-      return (
-        <div></div>
-      );
-    } else {
-      return (
-        this.items()
-      );
-    }
+    this.setState({
+      search: input
+    });
+    // if (input) {
+    //   return (
+    //     <div></div>
+    //   );
+    // } else {
+    //   return (
+    //     this.items()
+    //   );
+    // }
   }
 
   render() {
@@ -185,7 +193,7 @@ class App extends Component {
       <section>
         {this.header()}
         <ul className="skins">
-          {this.search()}
+          {this.items()}
         </ul>
 
         <Modal
