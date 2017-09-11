@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Modal from './modal.jsx';
 import Load from './load.jsx';
+import Search from './search.jsx';
 
 class App extends Component {
 
@@ -14,6 +15,7 @@ class App extends Component {
       price: null,
       items: null,
       loading: false,
+      search: "",
     };
 
     this.items_popular = this.items_popular.bind(this);
@@ -25,6 +27,7 @@ class App extends Component {
     this.price = this.price.bind(this);
     this.setPrice = this.setPrice.bind(this);
     this.load = this.load.bind(this);
+    this.search = this.search.bind(this);
   }
 
 
@@ -89,7 +92,12 @@ class App extends Component {
   header() {
     return (
       <div className = "header">
-        CSGO Skins
+        <Search
+          search = {(input) => this.search(input)}
+        />
+        <div>
+          CSGO Skins
+        </div>
       </div>
     );
   }
@@ -160,12 +168,24 @@ class App extends Component {
     });
   }
 
+  search(input) {
+    if (input) {
+      return (
+        <div></div>
+      );
+    } else {
+      return (
+        this.items()
+      );
+    }
+  }
+
   render() {
     return (
       <section>
         {this.header()}
         <ul className="skins">
-          {this.items()}
+          {this.search()}
         </ul>
 
         <Modal
